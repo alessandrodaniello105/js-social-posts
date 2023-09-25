@@ -101,6 +101,8 @@ const likeButtonContainer = `
 `;
 
 
+let counterLikes = 0;
+
 
 myPosts.forEach((post) => {
 
@@ -119,32 +121,18 @@ myPosts.forEach((post) => {
     `;
 
   
-    
+    let messageLikes = `
+    Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+    `;
 
 
     // 3. All'interno del post, utilizzando il template literals, inserisco il post statico
     // 5. Sostituisco i dati dinamici agli elementi statici del post (nome autore, foto autore, ...)
-    postElement.innerHTML = `
+    postElement.innerHTML += `
     
-        <div class="post__header">
+        ${printHeader(authorImgOutputAlt, post.author.name, post.dateIT)}
 
-            <div class="post-meta">                    
-                <div class="post-meta__icon">
-                    ${authorImgOutputAlt}                    
-                </div>
-                <div class="post-meta__data">
-                    <div class="post-meta__author">${post.author.name}</div>
-                    <div class="post-meta__time">${post.dateUS}</div>
-                </div>                    
-            </div>
-
-        </div>
-
-        <div class="post__text">${post.content}</div>
-
-        <div class="post__image">
-            <img src="${post.media}" alt="">
-        </div>
+        ${printBodyPost(post.content, post.media)}
 
         <div class="post__footer">
 
@@ -155,24 +143,73 @@ myPosts.forEach((post) => {
                 </div>
 
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                    ${messageLikes}
                 </div>
 
             </div> 
 
         </div> 
     `;
+    
+    
 });
+console.log(counterLikes)
 
 const likeButton = document.querySelector('.like-button');
 
 // 7. Aggiungo l'eventListener al click del Like
 likeButton.addEventListener('click', function(){
-    console.log('cliccato')
-    
+    counterLikes++
+    console.log(counterLikes)
 });
 
+
+
+const likesCounter = document.querySelector('.likes__counter');
+
+function printLikes(number){
+     `
+    Piace a <b id="like-counter-1" class="js-likes-counter">${number}</b> persone
+    `
+};
+
+
+
 // 2. Creo l'elemento post e lo appendo al contenitore prima definito
+
+
+
+
+function printHeader(profilePic, authorName, date) {
+    return `
+        <div class="post__header">
+
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    ${profilePic}                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${authorName}</div>
+                    <div class="post-meta__time">${date}</div>
+                </div>                    
+            </div>
+
+        </div>
+    `
+};
+
+
+function printBodyPost(content, media){
+    return `
+        <div class="post__text">${content}</div>
+
+        <div class="post__image">
+            <img src="${media}" alt="">
+        </div>
+    `;
+};
+
+
 
 
 
