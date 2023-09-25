@@ -67,29 +67,7 @@ const postContainer = document.querySelector('.posts-list');
 const myPosts = posts.map((post) => {
 
     const {id, content, media, author, likes, created} = post;
-    // const dateUSList = {
-    //     year: 0,
-    //     month: 0,
-    //     day: 0
-    // };
 
-    // const dateSplitted = created.split('-');
-
-    // dateUSList.year = dateSplitted[0];
-    // dateUSList.month = dateSplitted[1];
-    // dateUSList.day = dateSplitted[2];
-
-    // const dateUSOutput = `
-    //     ${dateUSList.month}-${dateUSList.day}-${dateUSList.year}
-    // `; 
-
-    // console.log(dateUSOutput)
-
-    // const {name, image} = author;
-    // console.log(image)
-    // if (!image) {
-    //     return 'alfonso'
-    // }
 
     const dateList = created.split('-');
 
@@ -97,6 +75,8 @@ const myPosts = posts.map((post) => {
     const dateUS = dateList[1] + '-' + dateList[2] + '-' + dateList[0];
 
 
+
+    // console.log(post.author)
     return {
         id,
         author,
@@ -110,6 +90,17 @@ const myPosts = posts.map((post) => {
     
 });
 
+// 6. Creo il bottone del like
+const likeButtonContainer = `
+    <a class="like-button  js-like-button" href="#" data-postid="1">
+                        
+        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+        <span class="like-button__label">Mi Piace</span>
+
+    </a>
+`;
+
+
 
 myPosts.forEach((post) => {
 
@@ -118,6 +109,17 @@ myPosts.forEach((post) => {
     const postElement = document.createElement('div');
     postElement.className = 'post';
     postContainer.append(postElement)
+
+    if (post.author.image === null) {
+        post.author.image = post.author.name.charAt(0);
+
+    }
+    const authorImgOutputAlt = `
+        <img class="profile-pic" src=${post.author.image} alt=${post.author.name}>
+    `;
+
+  
+    
 
 
     // 3. All'interno del post, utilizzando il template literals, inserisco il post statico
@@ -128,7 +130,7 @@ myPosts.forEach((post) => {
 
             <div class="post-meta">                    
                 <div class="post-meta__icon">
-                    <img class="profile-pic" src=${post.author.image} alt=${post.author.name}>                    
+                    ${authorImgOutputAlt}                    
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${post.author.name}</div>
@@ -149,11 +151,7 @@ myPosts.forEach((post) => {
             <div class="likes js-likes">
 
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
-                    
-                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                        <span class="like-button__label">Mi Piace</span>
-                    </a>
+                    ${likeButtonContainer}
                 </div>
 
                 <div class="likes__counter">
@@ -166,10 +164,16 @@ myPosts.forEach((post) => {
     `;
 });
 
+const likeButton = document.querySelector('.like-button');
+
+// 7. Aggiungo l'eventListener al click del Like
+likeButton.addEventListener('click', function(){
+    console.log('cliccato')
+    
+});
 
 // 2. Creo l'elemento post e lo appendo al contenitore prima definito
 
 
 
-console.log(myPosts.id)
 console.log(myPosts)
