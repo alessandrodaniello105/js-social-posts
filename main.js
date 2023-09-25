@@ -90,15 +90,7 @@ const myPosts = posts.map((post) => {
     
 });
 
-// 6. Creo il bottone del like
-const likeButtonContainer = `
-    <a class="like-button  js-like-button" href="#" data-postid="1">
-                        
-        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-        <span class="like-button__label">Mi Piace</span>
 
-    </a>
-`;
 
 
 let counterLikes = 0;
@@ -122,7 +114,23 @@ myPosts.forEach((post) => {
 
   
     let messageLikes = `
-    Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+        Piace a <b id="like-counter-1" class="js-likes-counter">${printCounter(post.likes)}</b> persone
+    `;
+
+    function printCounter(number) {
+        number = post.likes;
+        
+        return number
+    };
+
+    // 6. Creo il bottone del like
+    const likeButtonContainer = `
+        <a class="like-button  js-like-button" href="#" data-postid=${post.id}>
+                            
+            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+            <span class="like-button__label">Mi Piace</span>
+
+        </a>
     `;
 
 
@@ -134,34 +142,22 @@ myPosts.forEach((post) => {
 
         ${printBodyPost(post.content, post.media)}
 
-        <div class="post__footer">
+        ${printFooter(likeButtonContainer, messageLikes)}
 
-            <div class="likes js-likes">
-
-                <div class="likes__cta">
-                    ${likeButtonContainer}
-                </div>
-
-                <div class="likes__counter">
-                    ${messageLikes}
-                </div>
-
-            </div> 
-
-        </div> 
     `;
     
     
 });
 console.log(counterLikes)
 
-const likeButton = document.querySelector('.like-button');
+// const likeButton = document.querySelector('.like-button');
 
-// 7. Aggiungo l'eventListener al click del Like
-likeButton.addEventListener('click', function(){
-    counterLikes++
-    console.log(counterLikes)
-});
+// // 7. Aggiungo l'eventListener al click del Like
+// likeButton.addEventListener('click', function(){
+//     counterLikes++
+//     console.log(counterLikes)
+//     console.log("this.id", this.id)
+// });
 
 
 
@@ -210,7 +206,25 @@ function printBodyPost(content, media){
 };
 
 
+function printFooter(likebutton, likemessage) {
+    return `
+        <div class="post__footer">
 
+            <div class="likes js-likes">
+
+                <div class="likes__cta">
+                    ${likebutton}
+                </div>
+
+                <div class="likes__counter">
+                    ${likemessage}
+                </div>
+
+            </div> 
+
+        </div> 
+    `;
+}
 
 
 console.log(myPosts)
