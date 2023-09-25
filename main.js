@@ -106,3 +106,36 @@ post.innerHTML = `
 
     </div> 
 `;
+
+// 4. Clono l'array 'posts' in 'myPosts' e, destrutturando la data, la organizzo all'americana
+// const myPosts = [...posts];
+const myPosts = posts.map((post) => {
+
+    const {id, content, media, author, likes, created} = post;
+    // const dateUS = {
+    //     year: 0,
+    //     month: 0,
+    //     day: 0
+    // };
+
+    // const dateSplitted = created.split('-');
+    // console.log(dateSplitted)
+    // let baseYear = created[0]
+    // let baseMonth = created[1]
+    // let baseDay = created[2]
+
+    // console.log(baseDay + baseMonth + baseYear)
+
+    dateUS = created.split();
+    // console.log(dateUS)
+    return {
+        id,
+        author,
+        dateUS,
+        content,
+        likes,
+        media
+    }
+});
+
+console.log(myPosts)
