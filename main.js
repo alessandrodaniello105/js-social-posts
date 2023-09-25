@@ -126,12 +126,17 @@ const myPosts = posts.map((post) => {
 
     // console.log(baseDay + baseMonth + baseYear)
 
-    dateUS = created.split();
+    const dateList = created.split('-');
+
+    const dateIT = dateList[2] + ' - ' + dateList[1] + ' - ' + dateList[0];
+    const dateUS = dateList[1] + ' - ' + dateList[2] + ' - ' + dateList[0];
+
     // console.log(dateUS)
     return {
         id,
         author,
         dateUS,
+        dateIT,
         content,
         likes,
         media
